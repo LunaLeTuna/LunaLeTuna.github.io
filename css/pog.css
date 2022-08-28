@@ -1,0 +1,109 @@
+body {
+    background-color:black;
+    margin: 0;
+}
+
+#poggers {
+    width: 13vw;
+}
+
+#awa {
+    stroke: #FFFFFF;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 8;
+}
+
+#meow {
+    position: absolute;
+    width: 100%;
+}
+
+#top_bar {
+    z-index: 2;
+    backdrop-filter: blur(10px);
+    border-radius: 10px;
+    margin: 10px;
+    padding: 7px;
+    display: flex;
+    filter: drop-shadow(0 1px 3rem);
+    margin-bottom: 3vh;
+}
+
+#logo {
+    margin-right: 6px;
+}
+
+#buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+button {
+    background-color: #1da9d6;
+    border-width: 0;
+    color: white;
+    border-radius: 100px;
+    padding: 5px 30px;
+    font-size: 13px;
+    cursor: pointer;
+    margin-right: 6px;
+}
+
+#cafe {
+    backdrop-filter: blur(10px);
+    border-radius: 10px;
+    margin: 10px;
+    padding: 7px;
+    display: flex;
+    filter: drop-shadow(0 1.5vh 3rem);
+    display: inline-block;
+    min-width: 25%;
+    max-width: 30%;
+}
+
+@font-face {
+  font-family: sandfrancedistro;
+  src: url(/font/SF.ttf);
+}
+
+#arrow {
+    display: grid;
+}
+
+#cafe_left{
+    grid-row: start-line;
+    justify-self: start;
+}
+
+#cafe_lunk {
+    grid-row: start-line;
+    justify-self: center;
+}
+
+#cafe_right{
+    grid-row: start-line;
+    justify-self: end;
+}
+
+#cafe h1 {
+    font-family: sandfrancedistro;
+    color: white;
+    margin-top:0;
+}
+
+.kitsune {
+    background: linear-gradient(90deg, #64EBFF, #FF8DBD 50%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.CoffeeCat {
+    color: #738ADB !important;
+}
+
+#cafe p {
+    font-family: Arial, Helvetica, sans-serif;
+    color: white;
+}
