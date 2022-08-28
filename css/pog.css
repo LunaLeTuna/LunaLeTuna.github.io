@@ -3,6 +3,12 @@ body {
     margin: 0;
 }
 
+#backgroundawa {
+    background-image: url(/images/luna_island/4.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
 #poggers {
     width: 13vw;
 }
@@ -106,4 +112,68 @@ button {
 #cafe p {
     font-family: Arial, Helvetica, sans-serif;
     color: white;
+}
+
+
+#tab {
+    backdrop-filter: blur(10px);
+    border-radius: 10px;
+    margin: 10px;
+    padding: 7px;
+    display: flex;
+    filter: drop-shadow(0 1.5vh 3rem);
+    display: inline-table;
+    min-width: 25%;
+    max-width: 30%;
+}
+
+#tab h1 {
+    font-family: sandfrancedistro;
+    color: white;
+    margin-top:0;
+}
+
+#tab p {
+    font-family: Arial, Helvetica, sans-serif;
+    color: white;
+}
+
+@media only screen and (max-width: 1000px) {
+    #backgroundawa {
+        background-image: url(/images/luna_island/6.jpg);
+        background-size: auto;
+    }
+
+    #poggers {
+        min-width: 60vw;
+    }
+
+    #top_bar {
+        display: inline flow-root list-item;
+        margin-left: 20%;
+    }
+
+    button {
+        font-size: 30px;
+    }
+
+    #tab {
+        min-width: 96%;
+        max-width: 96%;
+    }
+    #tab h1 {
+        font-family: sandfrancedistro;
+        color: white;
+        margin-top:0;
+        font-size: 9vw;
+        margin-bottom: -30px;
+    }
+    #tab p {
+        font-family: Arial, Helvetica, sans-serif;
+        color: white;
+        font-size: 7vw;
+    }
+
+    #buttons {
+    }
 }
