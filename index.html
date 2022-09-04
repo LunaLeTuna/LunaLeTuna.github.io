@@ -5,83 +5,88 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
         <script src="js/button.js"></script>
         <svg width="0" height="0" xmlns="http://www.w3.org/2000/svg">
-  
-  <filter xmlns="http://www.w3.org/2000/svg" id="gf">
-      <feFlood flood-color="#FFF" flood-opacity="1" result="sauseb"/>
-      <feFlood flood-color="#FFC000" flood-opacity="0.5" result="sgb"/>
-      
-      <feComposite operator="in" in="sauseb" in2="SourceAlpha" result="sause"/>
-      <feComposite operator="in" in="sgb" in2="SourceAlpha" result="sg"/>
-      
-      <feGaussianBlur in="sg" stdDeviation="90" result="inside">
-        <animate attributeName="stdDeviation" attributeType="XML" begin="indefinite" end="indefinite" dur="0.5s" fill="freeze" from="90" to="0"/>
-        <animate attributeName="stdDeviation" attributeType="XML" begin="indefinite" end="indefinite" dur="0.5s" fill="freeze" from="0" to="90"/>
-      </feGaussianBlur>
-        <feColorMatrix
-                    in="inside"
-                    values="1 0 0 0 0 
-                            0 1 0 0 0 
-                            0 0 1 0 0 
-                            0 0 0 15 -7
-                            "
-                    result="insidefinal"/>
-        <feMerge>
-            <feMergeNode in="sause"/>
-            <feMergeNode in="insidefinal"/>
-      </feMerge>
-    </filter>
-                   
-      <filter xmlns="http://www.w3.org/2000/svg" id="tf">
-      <feFlood flood-color="#FFF" flood-opacity="1" result="sauseb"/>
-      <feFlood flood-color="#0F0" flood-opacity="0.5" result="sgb"/>
-      
-      <feComposite operator="in" in="sauseb" in2="SourceAlpha" result="sause"/>
-      <feComposite operator="in" in="sgb" in2="SourceAlpha" result="sg"/>
-      
-      <feGaussianBlur in="sg" stdDeviation="90" result="inside">
-        <animate attributeName="stdDeviation" attributeType="XML" begin="indefinite" end="indefinite" dur="0.5s" fill="freeze" from="90" to="0"/>
-        <animate attributeName="stdDeviation" attributeType="XML" begin="indefinite" end="indefinite" dur="0.5s" fill="freeze" from="0" to="90"/>
-      </feGaussianBlur>
-        <feColorMatrix
-                    in="inside"
-                    values="1 0 0 0 0 
-                            0 1 0 0 0 
-                            0 0 1 0 0 
-                            0 0 0 15 -7
-                            "
-                    result="insidefinal"/>
-        <feMerge>
-            <feMergeNode in="sause"/>
-            <feMergeNode in="insidefinal"/>
-      </feMerge>
-    </filter>
-  
-  <filter xmlns="http://www.w3.org/2000/svg" id="yf">
-      <feFlood flood-color="#FFF" flood-opacity="1" result="sauseb"/>
-      <feFlood flood-color="#F00" flood-opacity="0.5" result="sgb"/>
-      
-      <feComposite operator="in" in="sauseb" in2="SourceAlpha" result="sause"/>
-      <feComposite operator="in" in="sgb" in2="SourceAlpha" result="sg"/>
-      
-      <feGaussianBlur in="sg" stdDeviation="90" result="inside">
-        <animate attributeName="stdDeviation" attributeType="XML" begin="indefinite" end="indefinite" dur="0.5s" fill="freeze" from="90" to="0"/>
-        <animate attributeName="stdDeviation" attributeType="XML" begin="indefinite" end="indefinite" dur="0.5s" fill="freeze" from="0" to="90"/>
-      </feGaussianBlur>
-        <feColorMatrix
-                    in="inside"
-                    values="1 0 0 0 0 
-                            0 1 0 0 0 
-                            0 0 1 0 0 
-                            0 0 0 15 -7
-                            "
-                    result="insidefinal"/>
-        <feMerge>
-            <feMergeNode in="sause"/>
-            <feMergeNode in="insidefinal"/>
-      </feMerge>
-    </filter>
-  
-</svg>
+            <filter xmlns="http://www.w3.org/2000/svg" id="gf">
+                <feFlood flood-color="#FFF" flood-opacity="1" result="sauseb"/>
+                <feFlood flood-color="#FFC000" flood-opacity="0.5" result="sgb"/>
+
+                <feComposite operator="in" in="sauseb" in2="SourceAlpha" result="sause"/>
+                <feComposite operator="in" in="sgb" in2="SourceAlpha" result="sg"/>
+
+                <feGaussianBlur in="sg" stdDeviation="90" result="inside">
+                    <animate attributeName="stdDeviation" attributeType="XML" begin="indefinite" end="indefinite" dur="0.5s" fill="freeze" from="90" to="0"/>
+                    <animate attributeName="stdDeviation" attributeType="XML" begin="indefinite" end="indefinite" dur="0.5s" fill="freeze" from="0" to="90"/>
+                </feGaussianBlur>
+                    <feColorMatrix
+                                in="inside"
+                                values="1 0 0 0 0
+                                        0 1 0 0 0
+                                        0 0 1 0 0
+                                        0 0 0 15 -7
+                                        "
+                                result="insidefinal"/>
+                    <feMerge>
+                        <feMergeNode in="sause"/>
+                        <feMergeNode in="insidefinal"/>
+                </feMerge>
+                </filter>
+
+                <filter xmlns="http://www.w3.org/2000/svg" id="tf">
+                <feFlood flood-color="#FFF" flood-opacity="1" result="sauseb"/>
+                <feFlood flood-color="#0F0" flood-opacity="0.5" result="sgb"/>
+
+                <feComposite operator="in" in="sauseb" in2="SourceAlpha" result="sause"/>
+                <feComposite operator="in" in="sgb" in2="SourceAlpha" result="sg"/>
+
+                <feGaussianBlur in="sg" stdDeviation="90" result="inside">
+                    <animate attributeName="stdDeviation" attributeType="XML" begin="indefinite" end="indefinite" dur="0.5s" fill="freeze" from="90" to="0"/>
+                    <animate attributeName="stdDeviation" attributeType="XML" begin="indefinite" end="indefinite" dur="0.5s" fill="freeze" from="0" to="90"/>
+                </feGaussianBlur>
+                    <feColorMatrix
+                                in="inside"
+                                values="1 0 0 0 0
+                                        0 1 0 0 0
+                                        0 0 1 0 0
+                                        0 0 0 15 -7
+                                        "
+                                result="insidefinal"/>
+                    <feMerge>
+                        <feMergeNode in="sause"/>
+                        <feMergeNode in="insidefinal"/>
+                </feMerge>
+                </filter>
+
+            <filter xmlns="http://www.w3.org/2000/svg" id="yf">
+                <feFlood flood-color="#FFF" flood-opacity="1" result="sauseb"/>
+                <feFlood flood-color="#F00" flood-opacity="0.5" result="sgb"/>
+
+                <feComposite operator="in" in="sauseb" in2="SourceAlpha" result="sause"/>
+                <feComposite operator="in" in="sgb" in2="SourceAlpha" result="sg"/>
+
+                <feGaussianBlur in="sg" stdDeviation="90" result="inside">
+                    <animate attributeName="stdDeviation" attributeType="XML" begin="indefinite" end="indefinite" dur="0.5s" fill="freeze" from="90" to="0"/>
+                    <animate attributeName="stdDeviation" attributeType="XML" begin="indefinite" end="indefinite" dur="0.5s" fill="freeze" from="0" to="90"/>
+                </feGaussianBlur>
+                    <feColorMatrix
+                                in="inside"
+                                values="1 0 0 0 0
+                                        0 1 0 0 0
+                                        0 0 1 0 0
+                                        0 0 0 15 -7
+                                        "
+                                result="insidefinal"/>
+                    <feMerge>
+                        <feMergeNode in="sause"/>
+                        <feMergeNode in="insidefinal"/>
+                </feMerge>
+                </filter>
+
+            </svg>
+
+    <meta name="twitter:title" content="better start hiding ">
+    <meta name="twitter:description" content="nya nya in your walls :3">
+    <meta name="twitter:image" content="/banners/banner.png">
+    <meta name="twitter:card" content="summary_large_image">
+
     </head>
     <body>
         <div id="top">
