@@ -118,6 +118,8 @@ function MultiloadModel(model, texture, positions, tree_rotation, tree_sizes) {
 
 }
 
+var allow_hover = true;
+
 var wait_till_exist = 0;
 var cafe_door;
 var cafe_door_glass;
@@ -126,7 +128,12 @@ var is_cafe_door_hovered = false;
 var cafe_door_swing = 0;
 var cafe_door_swing_to = 0;
 var cafe_fake;
+
 var blahaj_mixer;
+var THE_BLAHAJ_IS_REAL = 0;
+var bht;
+var blahaj;
+var is_blahaj_hovered = false;
 
 let glass_shader = new THREE.MeshPhysicalMaterial({
     metalness: .9,
@@ -142,7 +149,7 @@ let glass_shader = new THREE.MeshPhysicalMaterial({
 });
 
 let awa_shader = new THREE.MeshBasicMaterial({
-    color: 0xFF0000,
+    color: 0xFE00FE,
     depthTest: false
 });
 
@@ -211,7 +218,7 @@ loadModel(outside_assets, '/models/plaza/tables/trash.obj', '/models/plaza/table
 
 //characters
 
-var bht = new THREE.MeshStandardMaterial( { color: 0xFFFFFF, roughness: 1.0, metalness: 0.0 } );
+bht = new THREE.MeshStandardMaterial( { color: 0xFFFFFF, roughness: 1.0, metalness: 0.0 } );
 
 var bhl = textureLoader.load( '/models/plaza/characters/blahaj.png' );
 bht.map = bhl;
@@ -226,11 +233,19 @@ loaderf.load( '/models/plaza/characters/blahaj.fbx', function ( object ) {
 
     object.children.forEach( mesh => { mesh.material = bht; } );
 
-    outside_assets[outside_assets.length] = object;
+    object.children[0].frustumCulled = false;
 
-    scene.add(outside_assets[outside_assets.length-1]);
+    scene.add(object);
 
 } );
+
+const geometry4 = new THREE.BoxGeometry( 0.4, 1, 0.4 );
+const material4 = new THREE.MeshBasicMaterial( {color: 0x00ff00} );
+blahaj = new THREE.Mesh( geometry4, material4 );
+blahaj.position.set(2, 1, 1);
+blahaj.visible=false;
+scene.add( blahaj );
+THE_BLAHAJ_IS_REAL=1;
 
 //cam
 
@@ -364,10 +379,11 @@ var is_outside = 0;
 var is_in_cafe = 0;
 
 function onMouseDown( event ) {
-    if(is_cafe_door_hovered && is_cafe_door_hovered!=3){
+    if(is_cafe_door_hovered && allow_hover){
         is_cafe_door_hovered=3;
         cafe_door_outline.visible = false;
         cafe_door_swing_to=3;
+        allow_hover=false;
         cafe();
         cam_target = new THREE.Vector3(0, 1.0, -3.5);
         cafe_fake.visible = false;
@@ -376,11 +392,22 @@ function onMouseDown( event ) {
         document.getElementById("cafe").style.display = "";
         is_in_cafe = 1; is_outside = 0;
     }
+
+    if(is_blahaj_hovered && allow_hover){
+        allow_hover=false;
+        bht.color = new THREE.Color( 0xfcfcfc );
+        cam_target = new THREE.Vector3(2.3, 1.0, 1);
+        document.getElementById("speak").style.display = "";
+        speaker="blahaj";
+        on=-1;
+        spnext();
+    }
 }
 
 function goto_cafe() {
     if(is_in_cafe) return;
     is_cafe_door_hovered=3;
+    allow_hover=false;
     cafe_door_outline.visible = false;
     cafe_door_swing_to=3;
     cafe();
@@ -396,6 +423,7 @@ document.querySelector('#cafe_nav').addEventListener('click', goto_cafe);
 function cafe_back_outside() {
     if(is_outside) return;
     is_cafe_door_hovered=false;
+    allow_hover=true;
     cafe_door_swing_to=0;
     cam_target = new THREE.Vector3(0, 1.2, 5);
     cafe_fake.visible = true;
@@ -412,7 +440,7 @@ var whatdis = [
     cam_pos: new THREE.Vector3(0.6, 1.0, -5.8),
     name: "Kitsune Engine",
     custom_tag: "kitsune",
-    description: `Basicly made this to help me quickly build aplications and games, mainly for a computer information sience class i'm taking in highschool, rn. It has a very messy V8 implementation. :3 Also, to quickly get it up I kinda barrowed some code from learnopengl.`,
+    description: `Basicly made this to help me quickly build aplications and games, mainly for a computer information sience class i'm taking in highschool, rn. It has a very messy V8 implementation. :3`, //sneaky, i know, to remove it >:3 (Shut up, don't @ me)
     ingredients: `c++, google v8, bullet physics, opengl`,
     link_lable: "GitHub",
     link: "https://github.com/LunaLeTuna/Kitsune-Engine"
@@ -496,6 +524,45 @@ function cafe_right() {
 }
 document.querySelector('#cafe_right').addEventListener('click', cafe_right)
 
+var speaker = "";
+
+var speaks = {
+    "blahaj":[
+        ["I'm currently suffocating...","there is no water.",false],
+        ["AAAAAAAAAA",false],
+        ["I HOPE YOU HAVE A WONDERFUL TRANSITION!!!!!", false],
+        ["meow meow- I mean uhhhhh- *blahaj noises*", false],
+        ["everyone says they want half-life 3 or portal 3 or Team-Fortress 3","but nobody ever asks where Ricochet 2 is. 3;",false],
+        ["grrrr",false],
+        ["i sold the end of the world in my dreams",false],
+        ["Did you know", "Hatsune Miku made minecraft! :3", "she is so talented",false]
+    ],
+    "sniz":[
+
+    ]
+
+}
+
+var on_chat = 0;
+
+function spnext() {
+    if(on==-1){
+        on_chat=Math.floor(Math.random() * speaks[speaker].length);
+    }
+    on++;
+    if(speaks[speaker][on_chat][on] != false){
+        document.getElementById("spname").innerHTML = speaker;
+        document.getElementById("sptext").innerHTML = speaks[speaker][on_chat][on];
+        return;
+    }else{
+        document.getElementById("speak").style.display = "none";
+        cam_target = new THREE.Vector3(0, 1.2, 5);
+        allow_hover=true;
+        return;
+    }
+}
+document.querySelector('#spnext').addEventListener('click', spnext)
+
 
 let balls = .5;
 const clock = new THREE.Clock();
@@ -512,17 +579,30 @@ function animate() {
 
     camera.updateMatrixWorld();
 
-    if(wait_till_exist == 3 && is_cafe_door_hovered!=3){
-        raycaster.setFromCamera( pointer, camera );
+    raycaster.setFromCamera( pointer, camera );
 
-        var intersects = raycaster.intersectObjects( [cafe_door_glass, cafe_door] );
+    if(wait_till_exist == 3 && allow_hover){
+        let intersects = raycaster.intersectObjects( [cafe_door_glass, cafe_door] );
 
-        if ( intersects.length > 0){
+        if (intersects.length > 0){
             cafe_door_outline.visible = true;
             is_cafe_door_hovered = true;
         }else{
             cafe_door_outline.visible = false;
             is_cafe_door_hovered = false;
+        }
+    }
+
+
+    if(THE_BLAHAJ_IS_REAL!=0 && allow_hover){
+        let intersects = raycaster.intersectObjects( [blahaj] );
+
+        if ( intersects.length > 0){
+            bht.color = new THREE.Color( 0xFEaaFE );
+            is_blahaj_hovered = true;
+        }else{
+            bht.color = new THREE.Color( 0xfcfcfc );
+            is_blahaj_hovered = false;
         }
     }
     

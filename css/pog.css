@@ -177,3 +177,32 @@ button {
     #buttons {
     }
 }
+
+#speak {
+    backdrop-filter: blur(10px);
+    border-radius: 10px;
+    margin: 10px;
+    padding: 7px;
+    display: flex;
+    filter: drop-shadow(0 1.5vh 3rem);
+    min-width: 80%;
+    position: fixed;
+    bottom: 0;
+}
+
+#speak h1 {
+    font-family: sandfrancedistro;
+    color: white;
+    margin-top:0;
+}
+
+#speak p {
+    font-family: Arial, Helvetica, sans-serif;
+    color: white;
+}
+
+#speak button {
+    position:absolute;
+    right:0;
+    bottom:10px;
+}
