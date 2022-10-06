@@ -535,7 +535,10 @@ var speaks = {
         ["everyone says they want half-life 3 or portal 3 or Team-Fortress 3","but nobody ever asks where Ricochet 2 is. 3;",false],
         ["grrrr",false],
         ["i sold the end of the world in my dreams",false],
-        ["Did you know", "Hatsune Miku made minecraft! :3", "she is so talented",false]
+        ["Did you know", "Hatsune Miku made minecraft! :3", "she is so talented",false],
+        ["...", "...", "...", "...", "nya ^^",false],
+        ["this place looks really really unfinished", "like look at the building behind me...", "so lazy",false],
+        ["could go for some saltine cracker right about now",false]
     ],
     "sniz":[
 
@@ -544,6 +547,9 @@ var speaks = {
 }
 
 var on_chat = 0;
+var is_speaking = false;
+var words_being_said = "";
+var current_letter = 0;
 
 function spnext() {
     if(on==-1){
@@ -552,12 +558,17 @@ function spnext() {
     on++;
     if(speaks[speaker][on_chat][on] != false){
         document.getElementById("spname").innerHTML = speaker;
-        document.getElementById("sptext").innerHTML = speaks[speaker][on_chat][on];
+        words_being_said = speaks[speaker][on_chat][on];
+        document.getElementById("top_bar").className = "blu_disabled";
+        is_speaking=true;
+        current_letter=0;
         return;
     }else{
         document.getElementById("speak").style.display = "none";
         cam_target = new THREE.Vector3(0, 1.2, 5);
         allow_hover=true;
+        document.getElementById("top_bar").className = "";
+        is_speaking=false;
         return;
     }
 }
@@ -604,6 +615,15 @@ function animate() {
             bht.color = new THREE.Color( 0xfcfcfc );
             is_blahaj_hovered = false;
         }
+    }
+
+
+    if(is_speaking)
+    if(current_letter <= words_being_said.length-1){
+        document.getElementById("sptext").innerHTML = words_being_said.slice(0,(Math.round(current_letter)-words_being_said.length));
+        current_letter+=0.35;
+    }else{
+        document.getElementById("sptext").innerHTML = words_being_said;
     }
     
     cam_real_pos.lerp(cam_target, 0.05);

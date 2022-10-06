@@ -178,6 +178,18 @@ button {
     }
 }
 
+@-webkit-keyframes fly {
+    0% { top:0;position:fixed;}
+    100% { top:-30%;position:fixed;}
+}
+
+.blu_disabled {
+    -webkit-animation: fly 2s;
+    top:-100%;
+    position:fixed;
+}
+
+
 #speak {
     backdrop-filter: blur(10px);
     border-radius: 10px;
@@ -188,16 +200,21 @@ button {
     min-width: 80%;
     position: fixed;
     bottom: 0;
+    margin-left:10%;
+    margin-right:20%;
 }
 
 #speak h1 {
     font-family: sandfrancedistro;
     color: white;
+    font-size: 60px;
     margin-top:0;
+    margin-bottom:5px;
 }
 
 #speak p {
     font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
     color: white;
 }
 
