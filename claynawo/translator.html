@@ -1,0 +1,143 @@
+<html> 
+	<head>
+		    <style>
+			@font-face { font-family: claynawo; src: url('./claynawo.ttf'); } 
+			.poggers {
+				font-family: claynawo;
+			}
+			</style>
+		<script>
+				var english = [];
+				var claynawo = [];
+				var i;
+
+				var xhr, text, lines;
+				if(window.XMLHttpRequest){
+					// IE7+, Firefox, Chrome, Opera, Safari
+					xhr = new XMLHttpRequest();
+				}else{
+					// IE5, IE6  - next line supports these dinosaurs
+					xhr = new ActiveXObject("Microsoft.XMLHTTP");
+				}
+				xhr.onreadystatechange = function(){
+					if(xhr.readyState == 4 && xhr.status == 200){
+						text = xhr.responseText;
+						lines = text.split("\n"); 
+						for(i = 0; i < lines.length; i++){ 
+							english[i] = lines[i];
+						}
+					} 
+				}
+				xhr.open('GET', './english.txt', true);
+				xhr.send();
+
+				var clay, textc, linesc;
+				if(window.XMLHttpRequest){
+					// IE7+, Firefox, Chrome, Opera, Safari
+					clay = new XMLHttpRequest();
+				}else{
+					// IE5, IE6  - next line supports these dinosaurs
+					clay = new ActiveXObject("Microsoft.XMLHTTP");
+				}
+				clay.onreadystatechange = function(){
+					if(clay.readyState == 4 && clay.status == 200){
+						textc = clay.responseText;
+						linesc = textc.split("\n"); 
+						for(i = 0; i < linesc.length; i++){ 
+							claynawo[i] = linesc[i];
+						}
+					}
+				}
+				clay.open('GET', './claynawo.txt', true);
+				clay.send();
+
+			function get_word(finda){
+				let plural = 0;
+
+				for(i = 0; i < english.length; i++){ 
+					if(english[i] == finda.toLowerCase()){
+						if(english[i][english[i].length-1]=="s"){
+							plural = -1;
+						}
+					}
+				}
+
+				if(finda[finda.length-1]=="s" && plural != -1){
+					finda = finda.substring(0, finda.length-1);
+					plural = 1;
+				}
+
+				for(i = 0; i < english.length; i++){ 
+					if(english[i] == finda.toLowerCase()){
+						let E = claynawo[i];
+						
+						if(plural == 1){
+							E = "q"+E;
+						}
+						return E;
+					}
+				}
+			}
+
+			function updatestuff(){
+				let blob = document.getElementById("theeng").value;
+				blob = blob.replaceAll("/n", ' ');
+				wordsa = blob.split(" ");
+				let shify = get_word(wordsa[0]);
+				for(let i = 1; i < wordsa.length; i++){ 
+				shify = shify + " " + get_word(wordsa[i]); 
+				}
+				document.getElementById("theclay").value = shify;
+			}
+
+
+
+
+			function get_eng(finda){
+				finda = finda.toLowerCase();
+
+				if(finda=="q") return "and";
+				if(finda=="zxt") return "a";
+
+				let plural = 0;
+				if(finda[0]=="q" ){
+					finda = finda.substring(1, finda.length);
+					plural = 1;
+				}
+
+				for(i = 1; i < claynawo.length; i++){ 
+					if(claynawo[i] == finda){
+						let E = english[i];
+						
+						if(plural == 1){
+							E = E+"s";
+						}
+						return E;
+					} 
+				}
+			}
+
+			function backto(){
+				let blob = document.getElementById("theclay").value;
+				blob = blob.replace(/[A-Z]/, '/n');
+				wordsa = blob.split(" ");
+				let shify = get_eng(wordsa[0]);
+				for(let i = 1; i < wordsa.length; i++){ 
+				shify = shify + " " + get_eng(wordsa[i]); 
+				}
+				document.getElementById("theeng").value = shify;
+			}
+		</script>
+	</head>
+	<body>
+		<textarea style="font-size: 150%;" type="text" placeholder="" id="theeng"></textarea>
+		<br/>
+		<button type="button" onclick="updatestuff();">eng to clay</button> <button type="button" onclick="backto();">clay to english</button>
+		<br/>
+		<textarea style="font-size: 150%;" class="poggers" type="text" placeholder="" id="theclay"></textarea>
+
+		<h1>Documentation</h1>
+		<p>full list of the words I have made so far (in english): <a href="./english.txt">click here</a></p>
+		<p>to make things plural in claynawo, you put a "<text class="poggers">q</text>"(oriang) infront of the word; also, "<text class="poggers">q</text>"(oriang) by itself is "and"</p>
+	</body>
+</html>
