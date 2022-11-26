@@ -8,10 +8,10 @@ var https = require('https');
 const express = require('express');
 const app = express();
 
-var privateKey = fs.readFileSync('sslcert/private.key.pem', 'utf8');
-var certificate = fs.readFileSync('sslcert/domain.cert.pem', 'utf8');
+// var privateKey = fs.readFileSync('sslcert/private.key.pem', 'utf8');
+// var certificate = fs.readFileSync('sslcert/domain.cert.pem', 'utf8');
 
-var credentials = {key: privateKey, cert: certificate};
+var credentials /*= {key: privateKey, cert: certificate};*/
 var httpServer = http.createServer(app);
 var httpsServer = https.createServer(credentials, app);
 

@@ -1,0 +1,22 @@
+{
+  "name": "lunaletuna.github.io",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LunaLeTuna/LunaLeTuna.github.io.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/LunaLeTuna/LunaLeTuna.github.io/issues"
+  },
+  "homepage": "https://github.com/LunaLeTuna/LunaLeTuna.github.io#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
