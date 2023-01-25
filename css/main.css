@@ -80,7 +80,24 @@ button {
     stroke-width: 8;
 }
 
+#hid_fulls {
+    display: none;
+}
+
+#show_fulls {
+    display: inline-block;
+}
+
 @media only screen and (max-width: 1000px) {
+
+    #hid_fulls {
+        display: inline-block;
+    }
+
+    #show_fulls {
+        display: none;
+    }
+
     #left {
         float: none;
         display: block;
