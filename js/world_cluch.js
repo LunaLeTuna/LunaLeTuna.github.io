@@ -3,6 +3,8 @@ import * as THREE from '/js/three.module.js';
 import { OBJLoader } from '/js/OBJLoader.js';
 import { FBXLoader } from '/js/FBXLoader.js';
 
+var phone_mode = false;
+
 var mx = 0;
 var my = 0;
 
@@ -16,6 +18,10 @@ function updateDisplay(event) {
     pointer.x = ( event.clientX / window.innerWidth ) * 2 - 1;
     pointer.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
 
+    if(window.innerWidth < 1000)
+    phone_mode=true;
+    else
+    phone_mode=false;
 }
 
 const scene = new THREE.Scene();
@@ -32,6 +38,11 @@ function onWindowResize() {
     camera.updateProjectionMatrix();
     renderer.setSize( window.innerWidth, window.innerHeight );
 
+
+    if(window.innerWidth < 1000)
+    phone_mode=true;
+    else
+    phone_mode=false;
 }
 
 
@@ -482,6 +493,7 @@ function cafe_update() {
         document.getElementById("cafe_title").innerHTML = "Luma Cafe";
         document.getElementById("cafe_bio").innerHTML = "click the arrows to look through projects";
         document.getElementById("cafe_title").className = "";
+        document.getElementById("cafe_ingredients").style.display = "none";
         document.getElementById("cafe_lunk").style.display = "none";
         return;
     }
@@ -579,14 +591,24 @@ let balls = .5;
 const clock = new THREE.Clock();
 
 function animate() {
+    if(window.innerWidth < 1000)
+    phone_mode=true;
+    else
+    phone_mode=false;
+
     requestAnimationFrame( animate );
 
     const delta = clock.getDelta();
 
     if(blahaj_mixer) blahaj_mixer.update( delta );
     
-    camera.rotation.y = (0.5-(mx/window.innerWidth))*balls;
-    camera.rotation.x = (0.5-(my/window.innerHeight))*balls;
+    if(phone_mode){
+        camera.rotation.y = 0;
+        camera.rotation.x = 0;
+    }else{
+        camera.rotation.y = (0.5-(mx/window.innerWidth))*balls;
+        camera.rotation.x = (0.5-(my/window.innerHeight))*balls;
+    }
 
     camera.updateMatrixWorld();
 
@@ -646,3 +668,4 @@ animate();
 window.addEventListener("mousemove", updateDisplay, false);
 window.addEventListener( 'mousedown', onMouseDown, false );
 window.addEventListener( 'resize', onWindowResize, false );
+renderer.domElement.addEventListener("click", onMouseDown, false);
