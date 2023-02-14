@@ -250,10 +250,10 @@ loaderf.load( '/models/plaza/characters/blahaj.fbx', function ( object ) {
 
 } );
 
-const geometry4 = new THREE.BoxGeometry( 0.4, 1, 0.4 );
+const geometry4 = new THREE.BoxGeometry( 0.6, 1, 0.4 );
 const material4 = new THREE.MeshBasicMaterial( {color: 0x00ff00} );
 blahaj = new THREE.Mesh( geometry4, material4 );
-blahaj.position.set(2, 1, 1);
+blahaj.position.set(2.5, 0.7, 0);
 blahaj.visible=false;
 scene.add( blahaj );
 THE_BLAHAJ_IS_REAL=1;
@@ -357,7 +357,21 @@ loader.load( '/models/luma_cafe/donuts/donuts_glass.obj', function ( obj ) {
 
 }, onProgress, onError );
 
-loadModel(cafe_assets, '/models/luma_cafe/donuts/coffee.obj', '/models/luma_cafe/donuts/cups.png', cafe_push);
+loader.load( '/models/luma_cafe/cof_hol/glass.obj', function ( obj ) {
+
+
+    obj.children.forEach( mesh => { mesh.material = glass_shader; } );
+
+    obj.position.copy(cafe_push);
+    obj.renderOrder = 3;
+
+    cafe_assets[cafe_assets.length] = obj
+
+    scene.add(cafe_assets[cafe_assets.length-1]);
+
+}, onProgress, onError );
+loadModel(cafe_assets, '/models/luma_cafe/cof_hol/bars.obj', '/models/luma_cafe/cof_hol/bars.png', cafe_push);
+loadModel(cafe_assets, '/models/luma_cafe/cof_hol/coffee.obj', '/models/luma_cafe/cof_hol/coffee.png', cafe_push);
 
 loadModel(cafe_assets, '/models/luma_cafe/donuts/coffee_machin.obj', '/models/luma_cafe/donuts/coffee_machin.png', cafe_push);
 loadModel(cafe_assets, '/models/luma_cafe/donuts/cash_eater.obj', '/models/luma_cafe/donuts/cash_eater.png', cafe_push);
@@ -386,8 +400,9 @@ loader.load( '/models/luma_cafe/special/cookie_jar_OwO.obj', function ( obj ) {
 outside();
 console.log(outside_assets);
 
-var is_outside = 0;
+var is_outside = 1;
 var is_in_cafe = 0;
+var is_in_arcade = 0;
 
 function onMouseDown( event ) {
     if(is_cafe_door_hovered && allow_hover){
@@ -560,7 +575,7 @@ var speaks = {
 
 var on_chat = 0;
 var is_speaking = false;
-var words_being_said = "";
+var words_being_said = " ";
 var current_letter = 0;
 
 function spnext() {
@@ -591,6 +606,20 @@ let balls = .5;
 const clock = new THREE.Clock();
 
 function animate() {
+    
+    if(is_outside && !is_speaking){
+        let avx = document.documentElement.scrollLeft/document.documentElement.scrollWidth;
+        let avy = document.documentElement.scrollTop;
+        cam_target = new THREE.Vector3(13*avx,1.2-avy, 5);
+        if(phone_mode){
+            cam_real_pos = cam_target;
+            camera.position.copy(cam_real_pos);
+        }
+        //console.log(document.documentElement.scrollLeft)
+        document.getElementById("screen_buffer").style.display = "list-item";
+    }else
+    document.getElementById("screen_buffer").style.display = "none";
+
     if(window.innerWidth < 1000)
     phone_mode=true;
     else
@@ -602,7 +631,7 @@ function animate() {
 
     if(blahaj_mixer) blahaj_mixer.update( delta );
     
-    if(phone_mode){
+    if(phone_mode || is_outside){
         camera.rotation.y = 0;
         camera.rotation.x = 0;
     }else{
@@ -643,17 +672,17 @@ function animate() {
     if(is_speaking)
     if(current_letter <= words_being_said.length-1){
         document.getElementById("sptext").innerHTML = words_being_said.slice(0,(Math.round(current_letter)-words_being_said.length));
-        current_letter+=0.35;
+        current_letter+=20*delta;
     }else{
         document.getElementById("sptext").innerHTML = words_being_said;
     }
     
-    cam_real_pos.lerp(cam_target, 0.05);
+    cam_real_pos.lerp(cam_target, 1*delta);
     camera.position.copy(cam_real_pos);
 
     if(Math.round(cafe_door_swing_to * 10) / 10 != Math.round(cafe_door_swing * 10) / 10){
-        if(cafe_door_swing_to > cafe_door_swing) cafe_door_swing+= 0.01;
-        else if(cafe_door_swing_to < cafe_door_swing) cafe_door_swing-= 0.01;
+        if(cafe_door_swing_to > cafe_door_swing) cafe_door_swing+= 1*delta;
+        else if(cafe_door_swing_to < cafe_door_swing) cafe_door_swing-= 1*delta;
         cafe_door.rotation.y=cafe_door_swing;
         cafe_door_glass.rotation.y=cafe_door_swing;
     }
@@ -665,7 +694,7 @@ function animate() {
 
 animate();
 
-window.addEventListener("mousemove", updateDisplay, false);
-window.addEventListener( 'mousedown', onMouseDown, false );
+renderer.domElement.addEventListener("mousemove", updateDisplay, false);
+renderer.domElement.addEventListener( 'mousedown', onMouseDown, false );
 window.addEventListener( 'resize', onWindowResize, false );
 renderer.domElement.addEventListener("click", onMouseDown, false);

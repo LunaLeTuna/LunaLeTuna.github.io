@@ -271,3 +271,8 @@ button {
     right:0;
     bottom:10px;
 }
+
+canvas {
+    position: fixed;
+    z-index: -1;
+}
