@@ -10,6 +10,9 @@ var my = 0;
 
 var world_sets = [];
 
+var last_x_scroll = 0;
+var last_y_scroll = 0;
+
 const raycaster = new THREE.Raycaster();
 var pointer = new THREE.Vector2();
 
@@ -736,12 +739,19 @@ function spnext() {
 document.querySelector('#spnext').addEventListener('click', spnext)
 
 
+let scroll_reacked = false;
 let balls = .5;
 const clock = new THREE.Clock();
 
 function animate() {
     
     if(is_outside && !is_speaking){
+        if(!scroll_reacked){
+            document.getElementById("screen_buffer").style.display = "list-item";
+            window.scrollBy(last_x_scroll, last_y_scroll);
+            console.log("backed");
+            scroll_reacked = true;
+        }
         let avx = document.documentElement.scrollLeft/document.documentElement.scrollWidth;
         let avy = document.documentElement.scrollTop/document.documentElement.scrollHeight;
         cam_target = new THREE.Vector3(13*avx,1.2-avy, 5);
@@ -750,9 +760,12 @@ function animate() {
             camera.position.copy(cam_real_pos);
         }
         //console.log(document.documentElement.scrollLeft)
-        document.getElementById("screen_buffer").style.display = "list-item";
-    }else
-    document.getElementById("screen_buffer").style.display = "none";
+        last_x_scroll = document.documentElement.scrollLeft;
+        last_y_scroll = document.documentElement.scrollTop;
+    }else{
+        document.getElementById("screen_buffer").style.display = "none";
+        scroll_reacked = false;
+    }
 
     if(window.innerWidth < 1000)
     phone_mode=true;
