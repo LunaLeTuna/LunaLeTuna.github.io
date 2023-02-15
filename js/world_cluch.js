@@ -632,12 +632,12 @@ function onMouseDown( event ) {
 }
 
 function goto_cafe(door_uip) {
-    if(!is_in_cafe) return;
+    if(is_in_cafe) return;
     doors[door_uip].is_door_hovered=3;
     allow_hover=false;
     doors[door_uip].door_outline.visible = false;
     doors[door_uip].door_swing_to=3;
-    cafe();
+    cafea();
     cam_target = new THREE.Vector3(0, 1.0, -3.5);
     doors[door_uip].fake.visible = false;
     on=-1;
@@ -645,7 +645,10 @@ function goto_cafe(door_uip) {
     document.getElementById("cafe").style.display = "";
     is_in_cafe = 1; is_outside = 0;
 }
-document.querySelector('#cafe_nav').addEventListener('click', goto_cafe);
+function nav_plug_cafe(){
+    goto_cafe(0);
+}
+document.querySelector('#cafe_nav').addEventListener('click', nav_plug_cafe);
 
 function cafe_left() {
     on--;
