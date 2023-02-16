@@ -39,22 +39,28 @@ scene.add( camera );
 
 function onWindowResize() {
 
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.updateProjectionMatrix();
-    renderer.setSize( window.innerWidth, window.innerHeight );
-
-
-    if(window.innerWidth < 1000)
-    phone_mode=true;
-    else
-    phone_mode=false;
+    if(window.innerWidth < 1000){
+        renderer.setPixelRatio( window.devicePixelRatio/5 );
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize( window.innerWidth, window.innerHeight );
+        renderer.antialias= false;
+        phone_mode=true;
+    }else{
+        renderer.setPixelRatio( window.devicePixelRatio );
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize( window.innerWidth, window.innerHeight );
+        renderer.antialias= true;
+        phone_mode=false;
+    }
 }
 
 
-const renderer = new THREE.WebGLRenderer({ antialias: true });
-renderer.setPixelRatio( window.devicePixelRatio );
+const renderer = new THREE.WebGLRenderer({ });
+onWindowResize();
+
 //renderer.outputEncoding = THREE.sRGBEncoding;
-renderer.setSize( window.innerWidth, window.innerHeight );
 document.body.appendChild( renderer.domElement );
 
 function onProgress( xhr ) {
