@@ -42,18 +42,19 @@ function onWindowResize() {
     if(window.innerWidth < 1000){
         renderer.setPixelRatio( window.devicePixelRatio/5 );
         camera.aspect = window.innerWidth / window.innerHeight;
-        camera.updateProjectionMatrix();
+        camera.fov = 60;
         renderer.setSize( window.innerWidth, window.innerHeight );
         renderer.antialias= false;
         phone_mode=true;
     }else{
         renderer.setPixelRatio( window.devicePixelRatio );
         camera.aspect = window.innerWidth / window.innerHeight;
-        camera.updateProjectionMatrix();
+        camera.fov = 50;
         renderer.setSize( window.innerWidth, window.innerHeight );
         renderer.antialias= true;
         phone_mode=false;
     }
+    camera.updateProjectionMatrix();
 }
 
 
