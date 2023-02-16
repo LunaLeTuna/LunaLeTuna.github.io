@@ -315,6 +315,39 @@ cafe_update();
 
 }
 
+function arcade_close(door_uip) {
+    if(!is_in_arcade) return;
+    doors[door_uip].is_door_hovered=false;
+    doors[door_uip].door_swing_to=0;
+    is_in_arcade = 0;
+}
+
+function arcadea(){
+    is_in_arcade = 1; is_outside = 0;
+    //Lighting & Environment
+    // scene.background = new THREE.Color( 0x000000 );
+    
+    // const ambientLight = new THREE.AmbientLight( 0x97C7CF, 0.4 );
+    // scene.add( ambientLight );
+    //
+    // const pointLight = new THREE.PointLight( 0xffffff, 0.8 );
+    // camera.add( pointLight );
+    
+    var push = new THREE.Vector3(6.6,-.0758,-4.86);
+    
+    //Assets
+    loadModel(cafe_assets, '/models/arcade/walls/walls.obj', '/models/arcade/walls/walls.png', push);
+    loadModel(cafe_assets, '/models/arcade/walls/ralles.obj', '/models/arcade/walls/ralles.png', push);
+    loadModel(cafe_assets, '/models/arcade/walls/lights.obj', '/models/arcade/walls/lights.png', push);
+    
+    world_sets = cafe_assets;
+
+    cam_target = new THREE.Vector3(6.6, 1, -3.5);
+    
+    //arcade_update();
+    
+    }
+
 var outside_assets = [];
 
 function cafe_close(door_uip) {
@@ -598,9 +631,9 @@ loader.load( '/models/plaza/cafe_door/outline.obj', function ( obj ) {
 
 }, onProgress, onError );
 
-arch["close"] = cafe_close;
-arch["update"] = cafe_update;
-arch["lock"] = true;
+arch["close"] = arcade_close;
+arch["update"] = arcadea;
+arch["lock"] = false;
 doors.push(arch);
 
 }
@@ -619,7 +652,6 @@ function onMouseDown( event ) {
             Le_Door.door_outline.visible = false;
             Le_Door.door_swing_to=3;
             allow_hover=false;
-            cam_target = new THREE.Vector3(0, 1.0, -3.5);
             Le_Door.fake.visible = false;
             on=-1;
             Le_Door.update(index);
