@@ -123,14 +123,21 @@ var whatdis = [
 }
 ]
 
-function loadModel(clack, model, texture, offset_pos, DEAPTJH_AT, bothsided) {
+function loadModel(clack, model, texture, offset_pos, DEAPTJH_AT, bothsided, lighted) {
 
     if(!DEAPTJH_AT)DEAPTJH_AT=1;
     if(offset_pos==null){
         offset_pos=new THREE.Vector3();
     }
 
-    var aaa = new THREE.MeshBasicMaterial( { color: 0xFFFFFF, transparent: true } );
+    var aaa;
+    if(!lighted)
+    aaa = new THREE.MeshBasicMaterial( { color: 0xFFFFFF, transparent: true } );
+    else{
+        aaa = new THREE.MeshStandardMaterial( { color: 0xFFFFFF, roughness: 1.0, metalness: 0.0 } );
+        if(lighted != true && lighted != false)
+        aaa.roughness = textureLoader.load( lighted );
+    }
 
     if(bothsided)aaa.side = THREE.DoubleSide;
 
@@ -341,9 +348,19 @@ function arcadea(){
     loadModel(cafe_assets, '/models/arcade/walls/ralles.obj', '/models/arcade/walls/ralles.png', push);
     loadModel(cafe_assets, '/models/arcade/walls/lights.obj', '/models/arcade/walls/lights.png', push);
     
+    loadModel(cafe_assets, '/models/arcade/arcades/arcade1.obj', '/models/arcade/arcades/space.png', push, 1, false, '/models/arcade/arcades/roughness.jpg');
+    loadModel(cafe_assets, '/models/arcade/arcades/arcade2.obj', '/models/arcade/arcades/fall.png', push, 1, false,  '/models/arcade/arcades/roughness.jpg');
+    loadModel(cafe_assets, '/models/arcade/arcades/arcade3.obj', '/models/arcade/arcades/blank.png', push, 1, false,  '/models/arcade/arcades/roughness.jpg');
+    loadModel(cafe_assets, '/models/arcade/arcades/arcade4.obj', '/models/arcade/arcades/woop.png', push, 1, false,  '/models/arcade/arcades/roughness.jpg');
+
+    loadModel(cafe_assets, '/models/arcade/desks/desktop.obj', '/models/arcade/desks/desktop.png', push);
+
     world_sets = cafe_assets;
 
     cam_target = new THREE.Vector3(6.6, 1, -3.5);
+    outside_assets.forEach(element => {
+        element.visible = false;
+    });
     
     //arcade_update();
     
@@ -639,9 +656,6 @@ doors.push(arch);
 
 }
 
-outside();
-console.log(outside_assets);
-
 var is_outside = 1;
 var is_in_cafe = 0;
 var is_in_arcade = 0;
@@ -682,9 +696,14 @@ function goto_cafe(door_uip) {
     on=-1;
     cafe_update();
     document.getElementById("cafe").style.display = "";
+    outside_assets.forEach(element => {
+        element.visible = false;
+    });
     is_in_cafe = 1; is_outside = 0;
 }
 function nav_plug_cafe(){
+    if(is_in_cafe) return;
+    back_outside();
     goto_cafe(0);
 }
 document.querySelector('#cafe_nav').addEventListener('click', nav_plug_cafe);
@@ -715,6 +734,10 @@ function back_outside() {
         is_in_cafe = 0; 
         is_in_arcade = 0;
         is_outside = 1;
+    });
+
+    outside_assets.forEach(element => {
+        element.visible = true;
     });
 
     world_sets.forEach(objx => {scene.remove(objx);})
@@ -881,6 +904,9 @@ function animate() {
 
     renderer.render( scene, camera );
 };
+
+outside();
+console.log(outside_assets);
 
 animate();
 
