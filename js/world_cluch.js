@@ -88,7 +88,7 @@ var whatdis = [
     name: "Kitsune Engine",
     custom_tag: "kitsune",
     description: `Basicly made this to help me quickly build aplications and games, mainly for a computer information sience class i'm taking in highschool, rn. It has a very messy V8 implementation. :3`, //sneaky, i know, to remove it >:3 (Shut up, don't @ me)
-    ingredients: `c++, google v8, bullet physics, opengl`,
+    ingredients: `Rust, and Deno`,
     link_lable: "GitHub",
     link: "https://github.com/LunaLeTuna/Kitsune-Engine"
 },
