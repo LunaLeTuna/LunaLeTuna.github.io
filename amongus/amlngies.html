@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>amongies check list</title>
+</head>
+<body>
+
+<style>
+body{
+margin:0;
+display: -webkit-box;
+}
+#map{
+z-index: 2;
+}
+#amongiessuslist {
+
+border: 5px solid black;
+margin: 0px;
+padding:25px;
+width:25%;
+z-index: 5;
+}
+#what{
+position:fixed;
+}
+#what img{
+width:99.9%;
+}
+#womp{
+background-color:red;
+width:50px
+height:70px;
+border-radius:100%;
+padding: 20px;
+}
+#meow{
+background-color:lightblue;
+border-radius:20px;
+padding:15px;
+margin-bottom:15px;
+
+}
+
+#awawaw{
+position: absolute;
+  z-index: 9;
+  text-align: center;}
+</style>
+
+
+<div id="amongiessuslist">
+
+<h1>impasta finda</h1>
+</div>
+
+<div id="what">
+<div id="awls">
+</div>
+
+ <img id="map" src="https://static.wikia.nocookie.net/among-us-wiki/images/3/35/The_Skeld_map.png/revision/latest?cb=20201111005126">
+</div>
+
+<script>
+	var list = document.getElementById("amongiessuslist");
+	var imlist = document.getElementById("awls");
+
+    var amongus_image = "./sus.png";
+
+    var make = [{amongus:"red",hue:0},{amongus:"green",hue:90},{amongus:"purple",hue:-50},{amongus:"blue",hue:200}]
+    make.forEach((el) => {
+
+        var ima = document.createElement("img");
+        ima.src = amongus_image;
+        ima.id = "awawaw";
+        ima.style.webkitFilter = "hue-rotate("+el.hue+"deg)";
+        dragElement(ima);
+        imlist.appendChild(ima);
+
+    	var weee = document.createElement("div");
+
+        var name = document.createElement("h1");
+        name.innerText = el.amongus;
+        weee.appendChild(name);
+
+        var im = document.createElement("img");
+        im.src = amongus_image;
+        im.id = el.name+"img";
+        im.width = 50;
+        im.height = 70;
+        im.style.webkitFilter = "hue-rotate("+el.hue+"deg)";
+        weee.appendChild(im);
+var aaaa = document.createElement("button");
+        var aa = document.createElement("button");
+        aa.id="womp";
+        aa.innerHTML = "not sus";
+        aa.onclick = function () {
+
+
+
+
+        if(aa.innerHTML == 'not sus'){
+         aa.innerHTML = 'sus'
+         im.src="./susssu.png"
+         aaaa.disabled=true
+        }
+else
+         if(aa.innerHTML == 'sus'){
+         aa.innerHTML = 'not sus'
+         im.src=amongus_image
+         aaaa.disabled=false
+        }
+    //this.parentElement.removeChild(this)
+};
+        weee.appendChild(aa);
+
+
+        aaaa.id="womp";
+        aaaa.innerHTML = "not dead";
+        aaaa.onclick = function () {
+
+
+
+
+        if(aaaa.innerHTML == 'not dead'){
+         aaaa.innerHTML = 'womp womp'
+         im.src="./dead.png"
+        aa.disabled=true
+        }
+else
+         if(aaaa.innerHTML == 'womp womp'){
+         aaaa.innerHTML = 'not dead'
+         im.src=amongus_image
+         aa.disabled=false
+        }
+    //this.parentElement.removeChild(this)
+};
+        weee.appendChild(aaaa);
+
+
+        var aaa = document.createElement("div");
+        aaa.innerHTML =`<br>
+        <p>notes:</p>
+        <textarea  type="textarea"></textarea>`
+        weee.appendChild(aaa);
+
+        weee.id="meow"
+
+        list.appendChild(weee);
+    })
+
+    dragElement(document.getElementById("awawaw"));
+
+
+
+function dragElement(elmnt) {
+elmnt.src = amongus_image
+elmnt.style.width = "30px";
+elmnt.onmousedown = womp;
+var awa=-10;
+var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+function womp(e){
+
+  e.preventDefault();
+  elmnt.style.border = "red 5px solid"
+  document.onmouseup = closeDragElement;
+    // call a function whenever the cursor moves:
+    document.onmousemove = elementDrag;
+  }
+
+  function elementDrag(e){
+ e.preventDefault();
+    // calculate the new cursor position:
+    pos1 = pos3 - e.clientX;
+    pos2 = pos4 - e.clientY;
+    pos3 = e.clientX;
+    pos4 = e.clientY;
+    // set the element's new position:
+    elmnt.style.top = (e.clientY) + "px";
+    elmnt.style.left = (e.clientX-390) + "px"
+  }
+
+  function closeDragElement(e){
+  elmnt.style.border = ""
+  document.onmouseup = null;
+    // call a function whenever the cursor moves:
+    document.onmousemove=null;
+  }
+}
+
+
+</script>
+
+</body>
+</html>
+
+
